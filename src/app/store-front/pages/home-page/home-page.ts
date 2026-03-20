@@ -1,7 +1,7 @@
-import {  Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductCard } from '../../components/product-card/product-card';
 import { ProductsService } from 'src/app/products/services/products.service';
-import { rxResource } from '@rxjs-toolkit/resource';
 
 @Component({
   selector: 'app-home-page',
@@ -13,9 +13,8 @@ export class HomePage {
 
  productsService = inject(ProductsService);
 
- productsresousce = rxResource({
-  request: () => ({}),
-  loader: ({request}: {request: Request}) => {
+ productsResource = rxResource({
+  stream: () => {
     return this.productsService.getProducts();
     }
   });
