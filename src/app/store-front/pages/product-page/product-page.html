@@ -1,1 +1,98 @@
-<p>product-page works!</p>,
+@if (product(); as p) {
+  <article class="mx-auto max-w-6xl px-4 pb-20 pt-8 md:px-6 lg:pt-12">
+    <div class="breadcrumbs mb-8 text-sm text-base-content/50">
+      <ul>
+        <li>
+          <a routerLink="/" class="link link-hover">Inicio</a>
+        </li>
+        <li class="max-w-[50vw] truncate opacity-80 md:max-w-md">{{ p.title }}</li>
+      </ul>
+    </div>
+
+    <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- Galería -->
+      <div class="w-full lg:sticky lg:top-8">
+        <div
+          class="rounded-2xl bg-neutral/80 p-5 shadow-sm ring-1 ring-base-content/5 backdrop-blur-sm md:p-6">
+          <div
+            class="carousel carousel-center rounded-box w-full max-w-xl mx-auto snap-x snap-mandatory">
+            @for (imageUrl of imageUrls(); track $index) {
+              <div class="carousel-item w-full shrink-0 snap-center">
+                <img
+                  class="w-full max-h-[min(70vh,32rem)] rounded-box bg-base-200 object-contain object-center"
+                  [src]="imageUrl"
+                  [alt]="p.title" />
+              </div>
+            } @empty {
+              <p class="w-full py-16 text-center text-sm text-neutral-content/60">Sin imágenes</p>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Detalle -->
+      <div class="flex flex-col gap-8">
+        <header class="space-y-4 border-b border-base-content/10 pb-8">
+          @if (p.tags.length) {
+            <div class="flex flex-wrap gap-2">
+              @for (tag of p.tags; track tag) {
+                <span class="badge badge-neutral badge-sm font-medium uppercase tracking-wide">{{
+                  tag
+                }}</span>
+              }
+            </div>
+          }
+          <h1 class="font-montserrat text-3xl font-semibold leading-tight tracking-tight text-base-content md:text-4xl">
+            {{ p.title }}
+          </h1>
+          <div class="flex flex-wrap items-end gap-4">
+            <p class="text-4xl font-semibold tabular-nums tracking-tight text-primary md:text-5xl">
+              {{ p.price | currency: 'USD' : 'symbol-narrow' : '1.0-0' }}
+            </p>
+            @if (p.stock > 0) {
+              <span class="badge badge-success badge-outline gap-1">
+                {{ p.stock === 1 ? '1 unidad' : p.stock + ' en stock' }}
+              </span>
+            } @else {
+              <span class="badge badge-error badge-outline">Agotado</span>
+            }
+          </div>
+          <p class="text-sm text-base-content/50">
+            {{ genderLabel(p.gender) }}
+          </p>
+        </header>
+
+        <section class="space-y-3">
+          <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-base-content/40">
+            Descripción
+          </h2>
+          <p class="max-w-prose text-base leading-relaxed text-base-content/80">
+            {{ p.description }}
+          </p>
+        </section>
+
+        @if (p.sizes.length) {
+          <section class="space-y-4">
+            <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-base-content/40">
+              Tallas
+            </h2>
+            <div class="flex flex-wrap gap-2">
+              @for (size of p.sizes; track size) {
+                <span
+                  class="inline-flex min-h-10 min-w-10 items-center justify-center rounded-lg border border-base-content/15 bg-base-100 px-4 text-sm font-medium text-base-content transition-colors hover:border-primary/40 hover:bg-base-200/80"
+                  >{{ size }}</span>
+              }
+            </div>
+          </section>
+        }
+
+        <div class="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center">
+          <button type="button" class="btn btn-primary btn-lg flex-1 sm:max-w-xs">
+            Añadir al carrito
+          </button>
+          <a routerLink="/" class="btn btn-ghost btn-lg">Seguir comprando</a>
+        </div>
+      </div>
+    </div>
+  </article>
+}

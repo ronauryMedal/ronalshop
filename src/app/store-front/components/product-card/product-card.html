@@ -1,14 +1,15 @@
 <div class="card bg-base-100 shadow-sm animate-fade-in-up">
     <figure>
       <img
-        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-        alt="Shoes" />
+        [src]="image() || 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp'"
+        alt="{{ product().title }}" />
     </figure>
     <div class="card-body">
-      <h2 class="card-title">Card Title</h2>
-      <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+      <a class="card-title text-lg font-montserrat  text-info" [routerLink]="['/product', product().slug]">{{ product().title }}</a>
+      <p class="text-gray-500">{{ product().description | slice:0:70 }}...</p>
       <div class="card-actions justify-end">
-        <button class="btn btn-primary">Buy Now</button>
+        <a class="btn btn-primary" [routerLink]="['/product', product().slug]">ver producto</a>
+        <a class="btn btn-secondary">agregar al carrito</a>
       </div>
     </div>
   </div>

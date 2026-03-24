@@ -1,7 +1,14 @@
     <h1 class=" text-3xl font-montserrat font-semibold text-center my-10">todos los productos</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <product-card></product-card>
-        <product-card></product-card>
-        <product-card></product-card>
-        <product-card></product-card>
+        @for (product of products(); track $index) {
+          <product-card [product]="product"></product-card>
+        }
+        
+        @empty {
+          <div class="col-span-full">
+            <h2 class="text-2xl font-montserrat font-semibold text-center my-10">no hay productos</h2>
+            <p class="text-center text-gray-500">no hay productos disponibles en este momento</p>
+            <a class="btn btn-primary" routerLink="/">volver al inicio</a>
+          </div>
+        }
     </div>
