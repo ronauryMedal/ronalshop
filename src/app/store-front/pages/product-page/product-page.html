@@ -15,7 +15,8 @@
         <div
           class="rounded-2xl bg-neutral/80 p-5 shadow-sm ring-1 ring-base-content/5 backdrop-blur-sm md:p-6">
           <div
-            class="carousel carousel-center rounded-box w-full max-w-xl mx-auto snap-x snap-mandatory">
+            #productCarousel
+            class="carousel carousel-center rounded-box w-full max-w-xl mx-auto snap-x snap-mandatory overflow-x-auto">
             @for (imageUrl of imageUrls(); track $index) {
               <div class="carousel-item w-full shrink-0 snap-center">
                 <img

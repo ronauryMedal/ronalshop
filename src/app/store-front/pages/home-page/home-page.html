@@ -1,4 +1,5 @@
     <h1 class=" text-3xl font-montserrat font-semibold text-center my-10">todos los productos</h1>
+    <app-paginator></app-paginator>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         @for (product of products(); track $index) {
           <product-card [product]="product"></product-card>
